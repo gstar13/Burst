@@ -1,3 +1,4 @@
+
 $(document).ready(function () {
     // Initialize Firebase
     var config = {
@@ -12,60 +13,88 @@ $(document).ready(function () {
     var database = firebase.database();
 
     //Get Elements
-
-    var txtEmail = $("#email-input");
-    var txtPassword = $("#password-input");
     var btnLogin = $("#sign-in-button");
     var btnSignUp = $('#sign-up-button');
     var btnLogout = $("#sign-out-button");
 
-
-    $("#sign-in-button").on("click", function () {
-        $("#sign-in-page").css("display", "none");
-    });
-
-
-
-
+   
 
 
 
     //Add login Event
     btnLogin.click(e => {
         //Get email and pass
-        var email = txtEmail.value;
-        var pass = txtPassword.value;
+        var email = $("#email-input").val().trim();
+        var pass = $("#password-input").val().trim();
+        console.log(pass , "is the pw");
+        console.log(email, "is the email");
         var auth = firebase.auth();
         //Sign In
         const promise = auth.signInWithEmailAndPassword(email, pass);
         promise.catch(e => console.log(e.message));
+
+        $("#sign-in-button").on("click", function () {
+            if (email && pass){ 
+            $("#sign-in-page").css("display", "none");
+            $("#burst-home-page").css("display", "inherit");
+            }
+            else {
+                return;
+            }
+        });
+
     });
     //Add Sign Up event
     btnSignUp.click(e => {
         //Get email and pass
         //TODO: check for real email
-        var email = txtEmail.value;
-        var pass = txtPassword.value;
+        var email = $("#email-input").val().trim();
+        var pass = $("#password-input").val().trim();
+        console.log(pass , "is the pw");
+        console.log(email, "is the email");
         var auth = firebase.auth();
         //Sign In
         const promise = auth.createUserWithEmailAndPassword(email, pass);
         promise
             .catch(e => console.log(e.message));
     });
+
+
+
     //create a logout event
     btnLogout.click(e => {
+        console.log('hello');
         firebase.auth().signOut();
+        $("#email-input").val("");
+        $("#password-input").val("");
     })
     //Add a realitime listener
     firebase.auth().onAuthStateChanged(firebaseUser => {
         if (firebaseUser) {
             console.log(firebaseUser);
             console.log("logged in");
-            btnLogout.classList.remove('hide');
+            $("#sign-in-page").css("display", "none");
+            $("#burst-home-page").css("display", "inherit");
         } else {
             console.log('not logged in');
+            $("#sign-in-page").css("display", "inherit");
+            $("#burst-home-page").css("display", "none");
+            
         }
     })
+
+
+
+
+
+
+
+
+
+
+
+
+
 //put the paintings onto the page
 $("#start").on("click", function () {
     renderPainting();
@@ -104,3 +133,5 @@ function getObjectNumbers (){
 }
 
 })
+
+

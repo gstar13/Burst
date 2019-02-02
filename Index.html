@@ -22,9 +22,9 @@
           
                <div class="flex-container-center">
                     <div id="sign-input-container">
-                         <form class="border action="#">
+                         <form class="border" action="#">
                               <input class="sign-in-input borders" type="email" id="email-input" placeholder="Enter your email" required>
-                              <input class="sign-in-input borders" type="text" id="password-input" placeholder="Enter your password" required>
+                              <input class="sign-in-input borders" type="password" id="password-input" placeholder="Enter your password" required>
                               <div class="flex-container-center">
                                    <button class="sign-button borders in" type="submit"  id="sign-in-button">sign in</button>
                                    <button class="sign-button borders up" type="submit"  id="sign-up-button">sign up</button>
@@ -38,6 +38,54 @@
 
           <!-- In the div below we'll set the home page for the user that has signed in -->
           <div id="burst-home-page">
+
+               <div class="header-container border">
+
+                    <div class="flex-container-space-around">
+                         <div class="logo-container-2">
+                              <img src="Assets/Images/burst-logo-white.png" alt="" class="burst-logo-2">
+                         </div>
+
+                         <div class="user-container ">
+                              <p id="user-name" class="user">luna.z.rivera@gmail.com</p>
+                         </div>
+
+                         <div class="sign-out-input">
+                                   <button class="sign-button out" type="submit"  id="sign-out-button">sign out</button>
+                         </div>
+                    </div>
+
+               </div>
+
+               <div class="flex-container-center">
+                    <div class="section-container border">
+                         <div class="flex-container-center">
+                              <div class="section-header">
+                                   <h2 class="burst-feed">Burst Feed</h2>
+                              </div>
+                         </div>
+
+                         <section id="burst-section" class="burst-style border">
+
+            
+
+                         </section>
+
+                          <!-- This div bellow will appear as long as the user is new -->
+                         <div class="flex-container-center initial-box" id="call-to-action">
+
+                                   <div class="flex-container-column border">
+                                        <div class="call-to-action-container">
+                                             <h3 class="call-to-action-text">¿WHY HAVEN'T YOU BURST YET?</h3>
+                                             
+                                             <div class="flex-container-center">
+                                                  <button class="burst-button" id="burst-action">BURST</button>    
+                                             </div>
+                                        </div>
+                                   </div>
+                         </div>
+                    </div>
+               </div>
 
           </div>
           <!--------------------------------------------------------------------------->
