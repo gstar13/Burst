@@ -33,9 +33,9 @@ $(document).ready(function () {
     //Add login Event
     btnLogin.click(e => {
         //Get email and pass
-        const email = txtEmail.value;
-        const pass = txtPassword.value;
-        const auth = firebase.auth();
+        var email = txtEmail.value;
+        var pass = txtPassword.value;
+        var auth = firebase.auth();
         //Sign In
         const promise = auth.signInWithEmailAndPassword(email, pass);
         promise.catch(e => console.log(e.message));
@@ -44,9 +44,9 @@ $(document).ready(function () {
     btnSignUp.click(e => {
         //Get email and pass
         //TODO: check for real email
-        const email = txtEmail.value;
-        const pass = txtPassword.value;
-        const auth = firebase.auth();
+        var email = txtEmail.value;
+        var pass = txtPassword.value;
+        var auth = firebase.auth();
         //Sign In
         const promise = auth.createUserWithEmailAndPassword(email, pass);
         promise
@@ -66,4 +66,41 @@ $(document).ready(function () {
             console.log('not logged in');
         }
     })
+//put the paintings onto the page
+$("#start").on("click", function () {
+    renderPainting();
+
+})
+
+function renderPainting() {
+    var paintings = ["SK-C-216", "SK-A-4717", "SK-A-3089", "SK-A-2257", "SK-A-1796", "SK-A-1299", "SK-A-4908", "SK-A-1355", "SK-A-4844", "SK-C-177",
+        "SK-C-301", "sk-c-5"];
+    var rand = paintings[Math.floor(Math.random() * paintings.length)];
+    var queryURL = "https://www.rijksmuseum.nl/api/en/collection/" + rand + "?key=CAoioqgR&format=json";
+    console.log(queryURL);
+    $.ajax({
+        url: queryURL,
+        method: "GET"
+    }).then(function (response) {
+        console.log(response);
+        var $painting = $("<img>");
+        $painting.addClass("contemplate");
+        var $titlediv = $("<div>");
+        $titlediv.addClass("details");
+        var paintingURL = response.artObject.webImage.url;
+        var paintingName = response.artObject.titles[0];
+        var paintingDate = response.artObject.dating.presentingDate;
+        var paintingArtist = response.artObject.principalMaker;
+        console.log(paintingURL);
+        $painting.attr("src", paintingURL);
+        $("#adds").append($painting);
+        $("#painting-title").append("Title: " + paintingName + "");
+        $("#artist-name").append("Artist: " + paintingArtist + "");
+        $("#painting-date").append("Date: " + paintingDate);
+    })
+}
+function getObjectNumbers (){
+    
+}
+
 })
