@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <meta http-equiv="X-UA-Compatible" content="ie=edge"> 
+     <link href="https://fonts.googleapis.com/css?family=Lato|Montserrat|Open+Sans|Roboto|Sarabun|Source+Sans+Pro" rel="stylesheet">
+     <link rel="stylesheet" href="Assets/Css/app.css">
+     <script src="Assets/Jquery/jquery-comp.js"></script>
+     <script src="https://www.gstatic.com/firebasejs/5.8.2/firebase.js"></script>
+     <title>Burst | Your Daily Self</title>
+</head>
+<body>
+     <div id="body-wrapper">
+          <!-- In the div below we'll set the logo and form input for the sign in user -->
+          <div id="sign-in-page">
+               <div class="flex-container-center">
+                    <div id="logo-container">
+                         <img class="burst-logo" src="Assets/Images/burst-logo-white.png" alt="burstLogo">
+                    </div>
+               </div>    
+          
+               <div class="flex-container-center">
+                    <div id="sign-input-container">
+                         <form class="border action="#">
+                              <input class="sign-in-input borders" type="email" id="email-input" placeholder="Enter your email" required>
+                              <input class="sign-in-input borders" type="text" id="password-input" placeholder="Enter your password" required>
+                              <div class="flex-container-center">
+                                   <button class="sign-button borders in" type="submit"  id="sign-in-button">sign in</button>
+                                   <button class="sign-button borders up" type="submit"  id="sign-up-button">sign up</button>
+                              </div>
+                         </form>
+                    </div>
+               </div>
+          </div>
+          <!--------------------------------------------------------------------------->
+
+
+          <!-- In the div below we'll set the home page for the user that has signed in -->
+          <div id="burst-home-page">
+
+          </div>
+          <!--------------------------------------------------------------------------->
+
+
+          <!-- In the div below we'll set the burst page which will show a random image
+          and let the user write its prefered title for the art piece shown and -->
+          <div id="burst-page">
+
+          </div>
+          <!--------------------------------------------------------------------------->
+     </div>
+     <!-- Here our javascript will reside -->
+     <script src="Assets/JS/Logic.js"></script>
+     <!--------------------------------------------------------------------------->
+</body>
+</html>
