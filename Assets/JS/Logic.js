@@ -1,3 +1,4 @@
+
 $(document).ready(function () {
     // Initialize Firebase
     var config = {
@@ -67,3 +68,4 @@ $(document).ready(function () {
         }
     })
 })
+
