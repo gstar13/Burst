@@ -15,12 +15,29 @@ font-family: 'Sarabun', sans-serif; */
 /*------------------------------------*/
 /*Easy to use flex containers & borders */
 /*------------------------------------*/
+.flex-container-column {
+     display: flex;
+     flex-direction: column;
+     justify-content: center;
+}
+
+.flex-container-space-around {
+     display: flex;
+     
+     justify-content: space-around;
+}
+.flex-container-space-btwn {
+     display: flex;
+     
+     justify-content: space-between;
+}
+
 .flex-container-center {
      display: flex;
      /* border: 1px solid rgb(26, 201, 198); */
      justify-content: center;
 }
-.border{
+.border {
      /* border: 1px solid rgb(26, 201, 198); */
 }
 /*------------------------------------*/
@@ -43,6 +60,7 @@ html {
 /* Body selector */
 /*------------------------------------*/
 body {
+     font-family: 'Roboto', sans-serif;
      box-sizing: border-box;
      /* border: 1px solid rgb(26, 201, 198); */
 }
@@ -52,6 +70,7 @@ body {
 #sign-in-page {
      background-color: #282E35;
      height: 100vh;
+     display: inherit;   /* this property will be temporary set to none */
 }
 
      #logo-container {
@@ -88,3 +107,93 @@ body {
           .in{
                border: 4px solid #4C96E9;
           }
+
+
+/*------------------------------------*/
+/*Bellow this comment are the Home Page Selectors*/
+/*------------------------------------*/
+.header-container {
+     background-color: #282E35
+}
+
+.logo-container-2 {
+     display: inline-block;
+     display: flex;
+     flex-direction: column;
+     justify-content: center;
+}
+
+     .burst-logo-2 {
+          display: inline-block;
+          width: 10rem;
+          
+     }
+
+.user-container {
+     left: 20%;
+     position: relative;
+     display: inline-block;
+     display: flex;
+     flex-direction: column;
+     justify-content: center;
+}
+
+
+     .user {
+          color: white;
+          
+     }
+
+     .out {
+          border: 4px solid rgb(233, 76, 76);
+     }
+
+/*------------------------------------*/
+/*Home Page Burst feed selectors*/
+/*------------------------------------*/
+#burst-home-page {
+     display:none;
+}
+.section-container {
+     margin-top: 2rem;
+     width: 70rem;
+}
+
+.burst-style {
+     
+}
+
+.burst-button-container {
+     display: inline-block;
+}
+
+.call-to-action-text {
+     
+}
+
+.burst-button {
+     border-radius: 10rem;
+     /* padding: 4px; */
+     width: 5rem;
+     height: 5rem;
+}
+
+.initial-box {
+     margin-top: 30rem;
+}
+
+.call-to-action-text {
+     font-size: 3rem;
+}    
+
+.burst-feed{
+     font-weight: 100;
+     font-size: 4rem;
+     border-bottom: .1rem solid#282E35;
+}
+
+.call-to-action-container {
+     padding: 1rem;
+     /* border: .2rem solid #FFDC6F;
+     border-radius: 1rem; */
+}

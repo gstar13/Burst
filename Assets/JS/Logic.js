@@ -11,4 +11,5 @@
 
    $("#sign-in-button").on("click", function() {
      $("#sign-in-page").css("display", "none");
+     $("#burst-home-page").css("display", "inherit")
    });
