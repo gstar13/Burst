@@ -1,4 +1,5 @@
 $(document).ready(function() {
+
   // Initialize Firebase
   var config = {
     apiKey: "AIzaSyDgIKRNjqoDiYu9sEu1qHn7cm_ANv2Fkhw",
@@ -8,11 +9,11 @@ $(document).ready(function() {
     storageBucket: "burst-bef24.appspot.com",
     messagingSenderId: "987925212265"
   };
+  
   firebase.initializeApp(config);
 
   // Firebase database reference set into a variable.
   var database = firebase.database();
-
   //Get Elements
   var btnLogin = $("#sign-in-button");
   var btnSignUp = $("#sign-up-button");
@@ -36,14 +37,6 @@ $(document).ready(function() {
     //Sign In
     const promise = auth.signInWithEmailAndPassword(email, pass);
     promise.catch(e => console.log(e.message));
-
-    $("#sign-in-button").on("click", function() {
-      if (email && pass) {
-       havePosts(snapshot);
-      } else {
-        return;
-      }
-    });
   });
 
   //Add Sign Up event
@@ -66,7 +59,7 @@ $(document).ready(function() {
 
     promise.catch(e => console.log(e.message));
 
-    $("#sign-in-button").on("click", function() {
+    $("#sign-up-button").on("click", function() {
       if (email && pass) {
         $("#sign-in-page").css("display", "none");
         $("#burst-home-page").css("display", "inherit");
@@ -87,21 +80,17 @@ $(document).ready(function() {
     postCreated = false;
   });
 
-  function havePosts(snapshot) {
-    if (snapshot.val() === {}) {
-      $("#sign-in-page").css("display", "none");
-      $("#burst-home-page").css("display", "inherit");
-      $("#call-to-action").css("display", "inherit");
-    } else {
-      $("#sign-in-page").css("display", "none");
-      $("#burst-home-page").css("display", "inherit");
-      $("#burst-section").css("display", "inherit");
-    }
-  }
-
   function displayPosts(snapshot) {
     var posts = snapshot.val() || {};
     var postsKeys = Object.keys(posts);
+
+    if (postsKeys.length) {
+      $("#call-to-action").css("display", "none");
+      $("#burst-section").css("display", "inherit");
+    } else {
+      $("#call-to-action").css("display", "block");
+      $("#burst-section").css("display", "none");
+    }
 
     // show posts;
     // debugger;
@@ -121,23 +110,14 @@ $(document).ready(function() {
     // making global for use everywhere :(
     currentUser = firebaseUser;
     var username = getUsername();
-
     $("#sign-in-page").css("display", "none");
     $("#burst-home-page").css("display", "inherit");
     $("#user-name").text(username);
-
-    
-    // if (postCreated === true) {
-    //   $("#call-to-action").css("display", "none");
-    //   $("#burst-section").css("display", "inherit");
-    //   $("#burst-btn-container").css("display", "inherit");
-    // };
     database.ref('/users/' + username).once('value').then(displayPosts);
   }
 
   function onLogout(){
     console.log("not logged in");
-
     $("#sign-in-page").css("display", "inherit");
     $("#burst-home-page").css("display", "none");
     $("#burst-page").css("display", "none");
@@ -177,24 +157,19 @@ $(document).ready(function() {
   // var email
   var paintingURL;
   var city;
-  // var $div;
-  var postCreated = false;
   // ----------------------------------------
   // Jquery Event Handlers
   // ----------------------------------------
   $("#to-home").on("click", function() {
     $("#feed-page").css("display", "inherit");
     $("#burst-page").css("display", "none");
-    if (postCreated === true) {
-      $("#call-to-action").css("display", "none");
-      $("#burst-section").css("display", "inherit");
-      $("#burst-btn-container").css("display", "inherit");
-    };
   });
 
   $("#create-burst-btn").on("click", function() {
     $("#feed-page").css("display", "none");
     $("#burst-page").css("display", "inherit");
+    $("#title-input").val("");
+    $("#text-area-input").val("");
     renderPainting();
   });
 
@@ -205,6 +180,53 @@ $(document).ready(function() {
     $("#burst-page").css("display", "inherit");
     renderPainting();
   });
+
+  $("#post-button").on("click", function() {
+    $("#burst-btn-container").css("display", "inherit");
+    $("#feed-page").css("display", "inherit");
+    $("#call-to-action").css("display", "none");
+    $("#burst-page").css("display", "none");
+    $("#burst-section").css("display", "inherit");
+    postCreated = true;
+    var userTitle = $("#title-input")
+      .val()
+      .trim();
+    var userComment = $("#text-area-input")
+      .val()
+      .trim();
+    // ----------------------------------
+    var newBurst = {
+      newTitle: userTitle,
+      newComment: userComment,
+      newLocation: city,
+      newPainting: paintingURL
+    };
+
+    // Invoking addPostToPage function.
+    addPostToPage(newBurst);
+
+    var username = getUsername();
+    database.ref('/users/' + username).push(newBurst);
+    // ----------------------------------
+  });
+
+  /// @TODO: MAYBE DELETE ME
+  // database.ref().on("child_added", function(snapshot) {
+    // var post = snapshot.val();
+    // addPostToPage(post);
+  // });
+
+  // ----------------------------------------
+  // Function Grounds
+  // ----------------------------------------
+
+
+
+
+
+
+
+
 
   function addPostToPage(post) {
     var $div = $("<div>").addClass("post-container", "post-separation");
@@ -230,51 +252,6 @@ $(document).ready(function() {
     $("#burst-section").append($div);
   }
 
-  $("#post-button").on("click", function() {
-    $("#burst-btn-container").css("display", "inherit");
-    $("#feed-page").css("display", "inherit");
-    $("#call-to-action").css("display", "none");
-    $("#burst-page").css("display", "none");
-    $("#burst-section").css("display", "inherit");
-    postCreated = true;
-    var userTitle = $("#title-input")
-      .val()
-      .trim();
-    var userComment = $("#text-area-input")
-      .val()
-      .trim();
-
-    
-    // ----------------------------------
-    var newBurst = {
-      newTitle: userTitle,
-      newComment: userComment,
-      newLocation: city,
-      newPainting: paintingURL
-    };
-
-    addPostToPage(newBurst);
-
-    var username = getUsername();
-    database.ref('/users/' + username).push(newBurst);
-    // ----------------------------------
-    
-    
-  });
-
-  /// @TODO: MAYBE DELETE ME
-  // database.ref().on("child_added", function(snapshot) {
-    // var post = snapshot.val();
-    // addPostToPage(post);
-  // });
-
-  // ----------------------------------------
-  // Function Grounds
-  // ----------------------------------------
-
-
-
-
   function renderPainting() {
     var paintings = [
       "SK-C-216",
@@ -288,7 +265,13 @@ $(document).ready(function() {
       "SK-A-4844",
       "SK-C-177",
       "SK-C-301",
-      "sk-c-5"
+      "SK-C-109",
+      "SK-C-1367",
+      "SK-C-5",
+      "SK-A-3262",
+      "SK-A-3948",
+      "SK-A-742",
+      "SK-A-1115"
     ];
 
     var rand = paintings[Math.floor(Math.random() * paintings.length)];
@@ -315,7 +298,6 @@ $(document).ready(function() {
       // $("#artist-name").append("Artist: " + paintingArtist + "");
       // $("#painting-date").append("Date: " + paintingDate);
     });
-  }
+  };
 
-  function getObjectNumbers() {}
 });
