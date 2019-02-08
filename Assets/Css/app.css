@@ -4,12 +4,14 @@
 
 /*------------------------------------*/
 /*Fonts to be used
-font-family: 'Roboto', sans-serif;
-font-family: 'Open Sans', sans-serif;
 font-family: 'Lato', sans-serif;
-font-family: 'Montserrat', sans-serif;
-font-family: 'Source Sans Pro', sans-serif;
-font-family: 'Sarabun', sans-serif; */
+font-family: 'Noto Serif SC', serif;*/
+@font-face {
+     font-family: "helvetica";
+     src: url("../Fonts/HelveticaNeueBold.ttf") format("ttf");
+     src: url("../Fonts/HelveticaNeueLight.ttf") format("ttf");
+     src: url("../Fonts/HelveticaNeueCondensedBlack.ttf") format("ttf");
+}
 /*------------------------------------*/
 
 /*------------------------------------*/
@@ -19,6 +21,11 @@ font-family: 'Sarabun', sans-serif; */
      display: flex;
      flex-direction: column;
      justify-content: center;
+}
+.flex-container-column-in-post {
+     display: flex;
+     flex-direction: column;
+     padding: 1rem;
 }
 
 .flex-container-space-around {
@@ -38,7 +45,7 @@ font-family: 'Sarabun', sans-serif; */
      justify-content: center;
 }
 .border {
-     /* border: 1px solid rgb(26, 201, 198); */
+     border: 6px solid rgb(26, 201, 198);
 }
 /*------------------------------------*/
 
@@ -49,18 +56,22 @@ font-family: 'Sarabun', sans-serif; */
      margin: 0;
      padding: 0;
      box-sizing: inherit;
+     /* border: 1px solid rgb(26, 201, 198); */
+
 }
 /*------------------------------------*/
 /* HTML selector for rem utilizatio/unit conversion*/
 /*------------------------------------*/
 html {
+     height: 100%;
      font-size: 62.5%; /* equivalent to 10px */
 }
 /*------------------------------------*/
 /* Body selector */
 /*------------------------------------*/
 body {
-     font-family: 'Roboto', sans-serif;
+     background-color: #FFDC6F;
+     font-family: "helvetica", sans-serif;
      box-sizing: border-box;
      /* border: 1px solid rgb(26, 201, 198); */
 }
@@ -70,7 +81,7 @@ body {
 #sign-in-page {
      background-color: #282E35;
      height: 100vh;
-     display: inherit;   /* this property will be temporary set to none */
+     /* display: none;   this property will be temporary set to none */
 }
 
      #logo-container {
@@ -110,90 +121,191 @@ body {
 
 
 /*------------------------------------*/
-/*Bellow this comment are the Home Page Selectors*/
-/*------------------------------------*/
-.header-container {
-     background-color: #282E35
-}
-
-.logo-container-2 {
-     display: inline-block;
-     display: flex;
-     flex-direction: column;
-     justify-content: center;
-}
-
-     .burst-logo-2 {
-          display: inline-block;
-          width: 10rem;
-          
-     }
-
-.user-container {
-     left: 20%;
-     position: relative;
-     display: inline-block;
-     display: flex;
-     flex-direction: column;
-     justify-content: center;
-}
-
-
-     .user {
-          color: white;
-          
-     }
-
-     .out {
-          border: 4px solid rgb(233, 76, 76);
-     }
-
-/*------------------------------------*/
-/*Home Page Burst feed selectors*/
+/*Bellow this comment are the Burst Home Page Selectors*/
 /*------------------------------------*/
 #burst-home-page {
-     display:none;
+     /* display: none; */
 }
-.section-container {
-     margin-top: 2rem;
-     width: 70rem;
+     .header-container {
+          background-color: #282E35;
+          box-shadow: 0px -1px 5px 5px #4F4F4F;
+     }
+     /* The selectors bellow this comment are inside the header container tag */
+          .logo-container-2 {
+               display: inline-block;
+               display: flex;
+               flex-direction: column;
+               justify-content: center;
+          }
+
+               .burst-logo-2 {
+                    display: inline-block;
+                    width: 10rem;
+                    
+               }
+
+          .user-container {
+               left: 20%;
+               position: relative;
+               display: inline-block;
+               display: flex;
+               flex-direction: column;
+               justify-content: center; 
+          }
+
+
+          .user {
+               color: white;
+               font-size: 1.6rem;
+          }
+
+          .out {
+               border: 4px solid rgb(233, 76, 76);
+          }
+/* ------------------------------------------------------------------------- */
+/* ------------------------------------------------------------------------- */
+.feed {
+     margin-top: 5rem;
+     /* background-color: beige; */
+     width: 100rem;
 }
 
-.burst-style {
-     
+     .title-container {
+          background-color: rgba(227, 226, 226, 0.866);
+          border: .3rem solid #282E35;
+          border-radius: 1rem;
+          padding: 1rem;
+          box-shadow: 0px -1px 20px 0px #4F4F4F;
+     }
+
+
+     .title-header {
+          font-size: 6rem;
+          font-weight: 500;
+          color: #282E35;
+     }
+
+     #burst-btn-container {
+          display:none;
+     }
+
+          .burst-button2 {
+               background-color: white;
+               position: relative;
+               left: 10rem;
+               border: .3rem solid #282E35;
+               border-radius: 10rem;
+               /* padding: 4px; */
+               width: 5rem;
+               height: 5rem;
+               
+          }
+
+
+/* Bellow this comment is the call to action that should appear only when a user is new */
+#call-to-action {
+     /* display: none; */
 }
+     .action-container {
+          margin-top: 20rem;
+     }
 
-.burst-button-container {
-     display: inline-block;
-}
+          .call-to-action-text {
+               font-size: 5rem;
+               
+          }
 
-.call-to-action-text {
-     
-}
-
-.burst-button {
-     border-radius: 10rem;
-     /* padding: 4px; */
-     width: 5rem;
-     height: 5rem;
-}
-
-.initial-box {
-     margin-top: 30rem;
-}
-
-.call-to-action-text {
-     font-size: 3rem;
-}    
-
-.burst-feed{
-     font-weight: 100;
-     font-size: 4rem;
-     border-bottom: .1rem solid#282E35;
-}
-
-.call-to-action-container {
+               .burst-button {
+                    font-size: 2rem;
+                    border: .8rem solid #282E35;
+                    margin-top: 1rem;
+                    border-radius: 10rem;
+                    /* padding: 4px; */
+                    width: 10rem;
+                    height: 10rem;
+                    background-color: white;
+                    box-shadow: 0px -1px 20px 0px #4F4F4F;
+               }
+/* -------------------------------------------------------------------------------------------- */
+/* -------------------------------------------------------------------------------------------- */
+/* Burst posts section */
+#burst-section {
+     background-color: rgba(227, 226, 226, 0.866);
+     border: .3rem solid #282E35;
+     border-radius: 1rem;
      padding: 1rem;
-     /* border: .2rem solid #FFDC6F;
-     border-radius: 1rem; */
+     box-shadow: 0px -1px 20px 0px #4F4F4F;
+     margin-top: 3rem;
+     display: none;
 }
+
+     .post-container {
+          padding: 2rem;
+          display: flex;
+     }
+     
+          .img-in-post {
+               border-radius: 1rem;
+               width: 40rem;
+               height: 25rem;
+          }
+
+          .title-post-container {
+               display: flex;
+          }
+
+          .post-title, .post-location {
+               font-size: 2rem;
+               padding: 1rem;
+               /* border: 1px solid black; */
+          }
+
+          .post-comment {
+               padding: 1rem;
+               font-size: 1.4rem;
+          }
+
+     
+
+/* -------------------------------------------------------------------------------------------- */
+
+/* Bellow this comment are the Burst Page selectors */
+#feed-page {
+     /* display: none; */
+}
+
+#burst-page {
+     display: none;
+}
+
+     .burst-image-container {
+          margin-top: 10rem;
+     }
+          .burst-image {
+               width: 60rem;
+               height: 40rem;
+               box-shadow: 0px -1px 5px 2px #4F4F4F;
+          }
+
+          .burst-opinion {
+               margin-top: 1rem;
+          }
+
+          .input-item {
+               border-radius:  .5rem;
+               margin-top: .5rem;
+               padding: .5rem;
+               resize: none;
+               box-shadow: 0px -1px 5px 0px #4F4F4F;
+               border-style: solid;
+               border-color: gray;
+          }
+
+          .post-btn {
+               margin-top: 1rem;
+               border-radius: 10rem;
+               /* padding: 4px; */
+               width: 5rem;
+               height: 5rem;
+               box-shadow: 0px -1px 5px 0px #4F4F4F;
+          }
