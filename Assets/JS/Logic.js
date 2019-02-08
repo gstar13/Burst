@@ -39,9 +39,7 @@ $(document).ready(function() {
 
     $("#sign-in-button").on("click", function() {
       if (email && pass) {
-        console.log("this is the email inside the if statement: ", email);
-        $("#sign-in-page").css("display", "none");
-        $("#burst-home-page").css("display", "inherit");
+       havePosts(snapshot);
       } else {
         return;
       }
@@ -86,27 +84,74 @@ $(document).ready(function() {
     $("#password-input").val("");
     $("#burst-page").css("display", "none");
     $("#burst-section").empty();
+    postCreated = false;
   });
+
+  function havePosts(snapshot) {
+    if (snapshot.val() === {}) {
+      $("#sign-in-page").css("display", "none");
+      $("#burst-home-page").css("display", "inherit");
+      $("#call-to-action").css("display", "inherit");
+    } else {
+      $("#sign-in-page").css("display", "none");
+      $("#burst-home-page").css("display", "inherit");
+      $("#burst-section").css("display", "inherit");
+    }
+  }
+
+  function displayPosts(snapshot) {
+    var posts = snapshot.val() || {};
+    var postsKeys = Object.keys(posts);
+
+    // show posts;
+    // debugger;
+    for (var i = 0; i < postsKeys.length; i++) {
+      addPostToPage(posts[postsKeys[i]]);
+    }
+  }
+
+  function getUsername() {
+    var email = currentUser.email;
+    var username = email.split('@')[0].replace(/[!.=|\\?]/g, '');
+    return username;
+  }
+
+  function onLogin(firebaseUser) {
+    var email = firebaseUser.email;
+    // making global for use everywhere :(
+    currentUser = firebaseUser;
+    var username = getUsername();
+
+    $("#sign-in-page").css("display", "none");
+    $("#burst-home-page").css("display", "inherit");
+    $("#user-name").text(username);
+
+    
+    // if (postCreated === true) {
+    //   $("#call-to-action").css("display", "none");
+    //   $("#burst-section").css("display", "inherit");
+    //   $("#burst-btn-container").css("display", "inherit");
+    // };
+    database.ref('/users/' + username).once('value').then(displayPosts);
+  }
+
+  function onLogout(){
+    console.log("not logged in");
+
+    $("#sign-in-page").css("display", "inherit");
+    $("#burst-home-page").css("display", "none");
+    $("#burst-page").css("display", "none");
+  }
 
   //Add a real time listener
   firebase.auth().onAuthStateChanged(firebaseUser => {
+    // var func = firebaseUser ? onLogin.bind(null, firebaseUser) : onLogout;
+    // func();
+
     if (firebaseUser) {
-      var email = $("#email-input")
-        .val()
-        .trim();
-      console.log(firebaseUser);
-      console.log("logged in");
-
-      $("#sign-in-page").css("display", "none");
-      $("#burst-home-page").css("display", "inherit");
-      $("#user-name").text(email);
-      database.ref("users/");
+      onLogin(firebaseUser);
     } else {
-      console.log("not logged in");
-
-      $("#sign-in-page").css("display", "inherit");
-      $("#burst-home-page").css("display", "none");
-      $("#burst-page").css("display", "none");
+      onLogout();
     }
   });
   // --------------------------------------------------------------------
@@ -122,25 +167,29 @@ $(document).ready(function() {
         console.log (state);
         console.log (country);
     });
-
-
-
-
-
   // --------------------------------------------------------------------
   // --------------------------------------------------------------------
+  
 
   // ----------------------------------------
   // Global variables
-  // ----------------------------------------\
+  // ----------------------------------------
+  // var email
   var paintingURL;
   var city;
+  // var $div;
+  var postCreated = false;
   // ----------------------------------------
   // Jquery Event Handlers
   // ----------------------------------------
   $("#to-home").on("click", function() {
     $("#feed-page").css("display", "inherit");
     $("#burst-page").css("display", "none");
+    if (postCreated === true) {
+      $("#call-to-action").css("display", "none");
+      $("#burst-section").css("display", "inherit");
+      $("#burst-btn-container").css("display", "inherit");
+    };
   });
 
   $("#create-burst-btn").on("click", function() {
@@ -157,58 +206,74 @@ $(document).ready(function() {
     renderPainting();
   });
 
+  function addPostToPage(post) {
+    var $div = $("<div>").addClass("post-container", "post-separation");
+    var $img = $("<img>").addClass("img-in-post").attr("src", post.newPainting);
+    var $div1 = $("<div>").addClass("flex-container-column-in-post");
+    var $div2 = $("<div>").addClass("title-post-container");
+    var $h3Title = $("<h3>").addClass("post-title").text(post.newTitle);
+    var $h3Location = $("<h3>").addClass("post-location").text(post.newLocation);
+    var $div3 = $("<div>");
+    var $pText = $("<p>").addClass("post-comment").text(post.newComment);
+    // ---------------------------------
+    $div.append($img)
+      .append($div1);
+
+    $div1.append($div2)
+      .append($div3);
+
+    $div2.append($h3Title)
+      .append($h3Location);
+
+    $div3.append($pText);
+
+    $("#burst-section").append($div);
+  }
+
   $("#post-button").on("click", function() {
     $("#burst-btn-container").css("display", "inherit");
     $("#feed-page").css("display", "inherit");
     $("#call-to-action").css("display", "none");
     $("#burst-page").css("display", "none");
     $("#burst-section").css("display", "inherit");
+    postCreated = true;
     var userTitle = $("#title-input")
       .val()
       .trim();
     var userComment = $("#text-area-input")
       .val()
       .trim();
-    $div = $("<div>");
-    $div.addClass("post-container", "post-separation");
-    $img = $("<img>");
-    $img.addClass("img-in-post");
-    $img.attr("src", paintingURL);
-    $div1 = $("<div>");
-    $div1.addClass("flex-container-column-in-post");
-    $div2 = $("<div>");
-    $div2.addClass("title-post-container");
-    $h3Title = $("<h3>");
-    $h3Title.addClass("post-title");
-    $h3Title.text(userTitle);
-    $h3Location = $("<h3>");
-    $h3Location.addClass("post-location");
-    $h3Location.text(city);
-    $div3 = $("<div>");
-    $pText = $("<p>");
-    $pText.addClass("post-comment");
-    $pText.text(userComment);
 
-    // ---------------------------------
-    $div.append($img);
-    $div.append($div1);
+    
+    // ----------------------------------
+    var newBurst = {
+      newTitle: userTitle,
+      newComment: userComment,
+      newLocation: city,
+      newPainting: paintingURL
+    };
 
-    $div1.append($div2);
-    $div1.append($div3);
+    addPostToPage(newBurst);
 
-    $div2.append($h3Title);
-    $div2.append($h3Location);
-
-    $div3.append($pText);
-
+    var username = getUsername();
+    database.ref('/users/' + username).push(newBurst);
     // ----------------------------------
     
-    $("#burst-section").append($div);
+    
   });
+
+  /// @TODO: MAYBE DELETE ME
+  // database.ref().on("child_added", function(snapshot) {
+    // var post = snapshot.val();
+    // addPostToPage(post);
+  // });
 
   // ----------------------------------------
   // Function Grounds
   // ----------------------------------------
+
+
+
 
   function renderPainting() {
     var paintings = [
