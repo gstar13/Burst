@@ -83,11 +83,11 @@ $(document).ready(function() {
   function displayPosts(snapshot) {
     var posts = snapshot.val() || {};
     var postsKeys = Object.keys(posts);
-
+    var burstbutton = $("#create-burst-btn2");
     if (postsKeys.length) {
       $("#call-to-action").css("display", "none");
       $("#burst-section").css("display", "inherit");
-      $("#burst-section").append("#create-burst-btn2");
+      $("#burstFeed").append(burstbutton);
     } else {
       $("#call-to-action").css("display", "block");
       $("#burst-section").css("display", "none");
