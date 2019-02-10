@@ -87,13 +87,14 @@ $(document).ready(function() {
     if (postsKeys.length) {
       $("#call-to-action").css("display", "none");
       $("#burst-section").css("display", "inherit");
+      $("#burst-section").append("#create-burst-btn2");
     } else {
       $("#call-to-action").css("display", "block");
       $("#burst-section").css("display", "none");
     }
 
     // show posts;
-    // debugger;
+    
     for (var i = 0; i < postsKeys.length; i++) {
       addPostToPage(posts[postsKeys[i]]);
     }
@@ -246,6 +247,7 @@ $(document).ready(function() {
 
     $div2.append($h3Title)
       .append($h3Location);
+      
 
     $div3.append($pText);
 
