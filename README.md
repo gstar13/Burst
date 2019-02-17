@@ -5,3 +5,4 @@ geolocator API. That gave us a JSON object that we are able to pull out the city
 where the user contemplated the art. The second API was from the Rijksmuseum. Our new technology was the firebase authentication and creating
 user accounts for each user. 
 This app could be useful for museums, schools research institutions and even marketing companies to get an idea of the publics ideas about particular images.
+Here is a link to the deployed file: https://gstar13.github.io/Burst/
